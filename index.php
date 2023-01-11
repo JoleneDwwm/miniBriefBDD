@@ -80,6 +80,8 @@ if (isset($_POST['modified0']) && isset($_POST['modified1']) && isset($_POST['mo
     echo '<script>alert("Votre entrée a bien été modifiée!")</script>';
 }
 
+$varTest = 'je teste je teste je teste ';
+
 //Template setup pt1/4
 require_once('template.class.php');
 define('TEMPLATES_PATH', 'templates');
@@ -87,7 +89,7 @@ define('TEMPLATES_PATH', 'templates');
 $template = new Template(TEMPLATES_PATH.'/tpl.html'); 
 //Assign values 3/4
 $template->assign('title', 'Bonjour');
-$template->assign('text', 'Monde');
+$template->assign('text', $varTest);
 //Show content 4/4 
 $template->show();
 ?>
