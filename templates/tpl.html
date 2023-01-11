@@ -11,5 +11,41 @@
     <div style="background-color:#c3c3c3;text-align:center;border-style:double;padding:1rem;margin:1rem;">
         <p>{TEXT}</p>
     </div>
+
+    <div style="background-color:#c3c3c3;text-align:center;border-style:double;padding:1rem;margin:1rem;">
+        <p>Afficher ou cacher toutes les entrées de la base de données</p>
+    <form style="margin:auto;" method="post">
+        <input type="submit" name="buttonShow" class="button" value="Afficher" />
+        <input type="submit" name="buttonErase" class="button" value="Cacher" />
+    </form>
+    </div>
+
+    <div style="background-color:#c3c3c3;text-align:center;border-style:double;padding:1rem;margin:1rem;">
+        <p>Ajouter une entrée dans la base de données</p>
+        <form method="post">
+            Ajouter un nom à votre entrée: <input type="text" name="newLinkName">
+            Ajouter l'adresse du site web: <input type="text" name="newLinkAddress">
+            Ajouter une description: <input type="text" name="newLinkDescription">
+            <input type="submit">
+        </form>
+        </div>
+
+    <div style="background-color:#c3c3c3;text-align:center;border-style:double;padding:1rem;margin:1rem;">
+        <p>Supprimer une entrée dans la base de données</p>
+        <form method="post">
+            Sélectionner le numéro de l'entrée: <input type="int" name="numberDelete">
+            <input type="submit">
+        </form>
+        </div>
+
+    <div style="background-color:#c3c3c3;text-align:center;border-style:double;padding:1rem;margin:1rem;">
+        <p>Modifier une entrée dans la base de données</p>
+        <form method="post">
+            Veuillez indiquer le numéro de l'entrée: <input type="int" name="findIdNumber">
+            <input type="submit">
+            <input type="submit" name="buttonErase" class="button" value="Effacer" />
+        </form>
+    </div>
+
 </body>
 </html>
