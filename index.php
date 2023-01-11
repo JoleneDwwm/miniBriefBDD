@@ -54,6 +54,7 @@ if (isset($_POST['findIdNumber'])) {
 
     foreach ($makeFormResult as $makeFormResult) {
         ?>
+        <div style="background-color:#c3c3c3;text-align:center;border-style:double;padding:1rem;margin:1rem;">
         <form method="post">
         Code de l'entrée dans la base de données (non modifiable): <?php echo $makeFormResult[0]; ?></br>
         <input type="hidden" value="<?php echo $makeFormResult[0]; ?>" name="modified0">
@@ -63,6 +64,7 @@ if (isset($_POST['findIdNumber'])) {
         Description à modifier: <input type="text" value="<?php echo $makeFormResult[4];?>" name="modified4"></br>
         <input type="submit">
         </form>
+        </div>
         <?php
     }
 }
