@@ -1,6 +1,7 @@
 <?php
 
 // I. Accès à la BDD 
+
 try
 {
     $mysqlClient = new PDO('mysql:host=localhost;dbname=brief5;charset=utf8', 'root', '' );
@@ -10,7 +11,8 @@ catch(Exception $e)
     die('Erreur : '.$e->getMessage("Il y a une erreur!" ));
 }
 
-// II. CRUD 
+// II. Create Read Update Delete 
+
 switch(true){
     case isset($_POST['buttonErase']): // Bouton "cacher ( = effacer l'affichage) les entrées de la BDD"
         $_POST = NULL; 
@@ -47,6 +49,62 @@ switch(true){
         $deleteEntry = $mysqlClient->prepare($sqlQuery);
         $deleteEntry->execute();
         echo '<script>alert("Votre entrée a bien été supprimée!")</script>';
+        break;
+    case (isset($_POST['frontEnd'])): // Formulaire "afficher les entrées par catégories, option 1"
+        $sqlQuery = "SELECT * FROM `liens` JOIN `categories` ON `liens`.`categoriesId` = `categories`.`numero` WHERE(`categories`.`numero`=0)";
+        $cat0 = $mysqlClient->prepare($sqlQuery);
+        $cat0->execute();
+        $cat0Result = $cat0->fetchAll();
+        foreach ($cat0Result as $dbEntriesResult) {
+            ?>
+            <div style="background-color:#c3c3c3;border-style:double;padding:1rem;margin:1rem;">
+                <p>Code de l'entrée dans la base de données: <?php echo $dbEntriesResult[0]; ?></p>
+                <p>Nom de l'entrée: <?php echo $dbEntriesResult[1]; ?></p>
+                <p>Adresse du site: <a href="<?php echo $dbEntriesResult[2]; ?>"><?php echo $dbEntriesResult[2]; ?></p></a>
+                <p>Adresse complète du lien: <a href="<?php echo $dbEntriesResult[3]; ?>"><?php echo $dbEntriesResult[3]; ?></p></a>
+                <p>Description: <?php echo $dbEntriesResult[4]; ?></p>
+            </div>
+            <?php
+            }
+        break;
+    case (isset($_POST['backEnd'])): // Formulaire "afficher les entrées par catégories, option 2"
+        $sqlQuery = "SELECT * FROM `liens` JOIN `categories` ON `liens`.`categoriesId` = `categories`.`numero` WHERE(`categories`.`numero`=1)";
+        $cat1 = $mysqlClient->prepare($sqlQuery);
+        $cat1->execute();
+        $cat1Result = $cat1->fetchAll();
+        foreach ($cat1Result as $dbEntriesResult) {
+            ?>
+            <div style="background-color:#c3c3c3;border-style:double;padding:1rem;margin:1rem;">
+                <p>Code de l'entrée dans la base de données: <?php echo $cat0Result[0]; ?></p>
+                <p>Nom de l'entrée: <?php echo $cat0Result[1]; ?></p>
+                <p>Adresse du site: <a href="<?php echo $cat0Result[2]; ?>"><?php echo $cat0Result[2]; ?></p></a>
+                ?>
+            <div style="background-color:#c3c3c3;border-style:double;padding:1rem;margin:1rem;">
+                <p>Code de l'entrée dans la base de données: <?php echo $dbEntriesResult[0]; ?></p>
+                <p>Nom de l'entrée: <?php echo $dbEntriesResult[1]; ?></p>
+                <p>Adresse du site: <a href="<?php echo $dbEntriesResult[2]; ?>"><?php echo $dbEntriesResult[2]; ?></p></a>
+                <p>Adresse complète du lien: <a href="<?php echo $dbEntriesResult[3]; ?>"><?php echo $dbEntriesResult[3]; ?></p></a>
+                <p>Description: <?php echo $dbEntriesResult[4]; ?></p>
+            </div>
+            <?php
+            }
+        break;
+    case (isset($_POST['outils'])): // Formulaire "afficher les entrées par catégories, option 3"
+        $sqlQuery = "SELECT * FROM `liens` JOIN `categories` ON `liens`.`categoriesId` = `categories`.`numero` WHERE (`categories`.`numero`=2) OR (`categories`.`numero`=3)";
+        $cat2 = $mysqlClient->prepare($sqlQuery);
+        $cat2->execute();
+        $cat2Result = $cat2->fetchAll();
+        foreach ($cat2Result as $dbEntriesResult) {
+            ?>
+            <div style="background-color:#c3c3c3;border-style:double;padding:1rem;margin:1rem;">
+                <p>Code de l'entrée dans la base de données: <?php echo $dbEntriesResult[0]; ?></p>
+                <p>Nom de l'entrée: <?php echo $dbEntriesResult[1]; ?></p>
+                <p>Adresse du site: <a href="<?php echo $dbEntriesResult[2]; ?>"><?php echo $dbEntriesResult[2]; ?></p></a>
+                <p>Adresse complète du lien: <a href="<?php echo $dbEntriesResult[3]; ?>"><?php echo $dbEntriesResult[3]; ?></p></a>
+                <p>Description: <?php echo $dbEntriesResult[4]; ?></p>
+            </div>
+            <?php
+            }
         break;
     case isset($_POST['findIdNumber']): // Formulaire "modifier une entrée dans la BDD, partie 1: afficher l'entrée à formuler"
         $idNumber = $_POST['findIdNumber'];
