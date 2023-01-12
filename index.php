@@ -14,10 +14,14 @@ catch(Exception $e)
 // II. Create Read Update Delete 
 
 switch(true){
-    case isset($_POST['buttonErase']): // Bouton "cacher ( = effacer l'affichage) les entrées de la BDD"
+
+    // Bouton "cacher ( = effacer l'affichage) les entrées de la BDD"
+    case isset($_POST['buttonErase']): 
         $_POST = NULL; 
         break; 
-    case isset($_POST['buttonShow']): // Bouton "afficher les entrées de la BDD"
+    
+    // Bouton "afficher les entrées de la BDD"
+    case isset($_POST['buttonShow']): 
         $sqlQuery = "SELECT * FROM liens";
         $dbEntries = $mysqlClient->prepare($sqlQuery);
         $dbEntries->execute();
@@ -34,7 +38,9 @@ switch(true){
             <?php
             }
         break;
-    case isset($_POST['newLinkName']) && isset($_POST['newLinkAddress']) && isset($_POST['newLinkDescription']): // Formulaire "ajouter une entrée dans la BDD"
+
+    // Formulaire "ajouter une entrée dans la BDD"
+    case isset($_POST['newLinkName']) && isset($_POST['newLinkAddress']) && isset($_POST['newLinkDescription']): 
         $newLinkName = $_POST['newLinkName'];
         $newLinkAddress = $_POST['newLinkAddress'];
         $newLinkDescription = $_POST['newLinkDescription'];
@@ -43,14 +49,18 @@ switch(true){
         $newDbEntry->execute();
         echo '<script>alert("Votre entrée a bien été ajoutée!")</script>';
         break;
-    case isset($_POST['numberDelete']): // Formulaire "effacer une entrée dans la BDD"
+
+    // Formulaire "effacer une entrée dans la BDD"
+    case isset($_POST['numberDelete']): 
         $numberDelete = $_POST['numberDelete'];
         $sqlQuery = "DELETE FROM `liens` WHERE `liens`.`numero` = '$numberDelete'";
         $deleteEntry = $mysqlClient->prepare($sqlQuery);
         $deleteEntry->execute();
         echo '<script>alert("Votre entrée a bien été supprimée!")</script>';
         break;
-    case (isset($_POST['frontEnd'])): // Formulaire "afficher les entrées par catégories, option 1"
+
+    // Formulaire "afficher les entrées par catégories, option 1"
+    case (isset($_POST['frontEnd'])): 
         $sqlQuery = "SELECT * FROM `liens` JOIN `categories` ON `liens`.`categoriesId` = `categories`.`numero` WHERE(`categories`.`numero`=0)";
         $cat0 = $mysqlClient->prepare($sqlQuery);
         $cat0->execute();
@@ -67,7 +77,8 @@ switch(true){
             <?php
             }
         break;
-    case (isset($_POST['backEnd'])): // Formulaire "afficher les entrées par catégories, option 2"
+    // Formulaire "afficher les entrées par catégories, option 2"
+    case (isset($_POST['backEnd'])): 
         $sqlQuery = "SELECT * FROM `liens` JOIN `categories` ON `liens`.`categoriesId` = `categories`.`numero` WHERE(`categories`.`numero`=1)";
         $cat1 = $mysqlClient->prepare($sqlQuery);
         $cat1->execute();
@@ -89,7 +100,8 @@ switch(true){
             <?php
             }
         break;
-    case (isset($_POST['outils'])): // Formulaire "afficher les entrées par catégories, option 3"
+    // Formulaire "afficher les entrées par catégories, option 3"
+    case (isset($_POST['outils'])): 
         $sqlQuery = "SELECT * FROM `liens` JOIN `categories` ON `liens`.`categoriesId` = `categories`.`numero` WHERE (`categories`.`numero`=2) OR (`categories`.`numero`=3)";
         $cat2 = $mysqlClient->prepare($sqlQuery);
         $cat2->execute();
@@ -106,7 +118,9 @@ switch(true){
             <?php
             }
         break;
-    case isset($_POST['findIdNumber']): // Formulaire "modifier une entrée dans la BDD, partie 1: afficher l'entrée à formuler"
+
+    // Formulaire "modifier une entrée dans la BDD, partie 1: afficher l'entrée à formuler"
+    case isset($_POST['findIdNumber']): 
         $idNumber = $_POST['findIdNumber'];
         $sqlQuery = "SELECT * FROM liens WHERE numero = '$idNumber'";
         $makeForm = $mysqlClient->prepare($sqlQuery);
@@ -127,7 +141,8 @@ switch(true){
             <?php
         }
         break;
-    case(isset($_POST['modified0']) && isset($_POST['modified1']) && isset($_POST['modified2']) && isset($_POST['modified3']) && isset($_POST['modified4'])): // Formulaire "modifier une entrée dans la BDD, partie 2: formulaire de modifications"
+    // Formulaire "modifier une entrée dans la BDD, partie 2: formulaire de modifications"
+    case(isset($_POST['modified0']) && isset($_POST['modified1']) && isset($_POST['modified2']) && isset($_POST['modified3']) && isset($_POST['modified4'])): 
             $idNumber = $_POST['modified0'];
             $modified1 = $_POST['modified1'];
             $modified2 = $_POST['modified2'];
@@ -138,6 +153,7 @@ switch(true){
             $updateForm->execute();
             echo '<script>alert("Votre entrée a bien été modifiée!")</script>';
         break; 
+        
     default: 
         $_POST = NULL; 
 }
