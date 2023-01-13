@@ -11,6 +11,8 @@ catch(Exception $e)
     die('Erreur : '.$e->getMessage("Il y a une erreur!" ));
 }
 
+$varTest = 'je teste je teste je teste ';
+
 // II. Create Read Update Delete 
 
 switch(true){
@@ -31,9 +33,8 @@ switch(true){
             <div style="background-color:#c3c3c3;border-style:double;padding:1rem;margin:1rem;">
                 <p>Code de l'entrée dans la base de données: <?php echo $dbEntriesResult[0]; ?></p>
                 <p>Nom de l'entrée: <?php echo $dbEntriesResult[1]; ?></p>
-                <p>Adresse du site: <a href="<?php echo $dbEntriesResult[2]; ?>"><?php echo $dbEntriesResult[2]; ?></p></a>
-                <p>Adresse complète du lien: <a href="<?php echo $dbEntriesResult[3]; ?>"><?php echo $dbEntriesResult[3]; ?></p></a>
-                <p>Description: <?php echo $dbEntriesResult[4]; ?></p>
+                <p>Adresse complète du lien: <a href="<?php echo $dbEntriesResult[2]; ?>"><?php echo $dbEntriesResult[2]; ?></p></a>
+                <p>Description: <?php echo $dbEntriesResult[3]; ?></p>
             </div>
             <?php
             }
@@ -68,11 +69,10 @@ switch(true){
         foreach ($cat0Result as $dbEntriesResult) {
             ?>
             <div style="background-color:#c3c3c3;border-style:double;padding:1rem;margin:1rem;">
-                <p>Code de l'entrée dans la base de données: <?php echo $dbEntriesResult[0]; ?></p>
+            <p>Code de l'entrée dans la base de données: <?php echo $dbEntriesResult[0]; ?></p>
                 <p>Nom de l'entrée: <?php echo $dbEntriesResult[1]; ?></p>
-                <p>Adresse du site: <a href="<?php echo $dbEntriesResult[2]; ?>"><?php echo $dbEntriesResult[2]; ?></p></a>
-                <p>Adresse complète du lien: <a href="<?php echo $dbEntriesResult[3]; ?>"><?php echo $dbEntriesResult[3]; ?></p></a>
-                <p>Description: <?php echo $dbEntriesResult[4]; ?></p>
+                <p>Adresse complète du lien: <a href="<?php echo $dbEntriesResult[2]; ?>"><?php echo $dbEntriesResult[2]; ?></p></a>
+                <p>Description: <?php echo $dbEntriesResult[3]; ?></p>
             </div>
             <?php
             }
@@ -86,16 +86,10 @@ switch(true){
         foreach ($cat1Result as $dbEntriesResult) {
             ?>
             <div style="background-color:#c3c3c3;border-style:double;padding:1rem;margin:1rem;">
-                <p>Code de l'entrée dans la base de données: <?php echo $cat0Result[0]; ?></p>
-                <p>Nom de l'entrée: <?php echo $cat0Result[1]; ?></p>
-                <p>Adresse du site: <a href="<?php echo $cat0Result[2]; ?>"><?php echo $cat0Result[2]; ?></p></a>
-                ?>
-            <div style="background-color:#c3c3c3;border-style:double;padding:1rem;margin:1rem;">
                 <p>Code de l'entrée dans la base de données: <?php echo $dbEntriesResult[0]; ?></p>
                 <p>Nom de l'entrée: <?php echo $dbEntriesResult[1]; ?></p>
-                <p>Adresse du site: <a href="<?php echo $dbEntriesResult[2]; ?>"><?php echo $dbEntriesResult[2]; ?></p></a>
-                <p>Adresse complète du lien: <a href="<?php echo $dbEntriesResult[3]; ?>"><?php echo $dbEntriesResult[3]; ?></p></a>
-                <p>Description: <?php echo $dbEntriesResult[4]; ?></p>
+                <p>Adresse complète du lien: <a href="<?php echo $dbEntriesResult[2]; ?>"><?php echo $dbEntriesResult[2]; ?></p></a>
+                <p>Description: <?php echo $dbEntriesResult[3]; ?></p>
             </div>
             <?php
             }
@@ -111,9 +105,8 @@ switch(true){
             <div style="background-color:#c3c3c3;border-style:double;padding:1rem;margin:1rem;">
                 <p>Code de l'entrée dans la base de données: <?php echo $dbEntriesResult[0]; ?></p>
                 <p>Nom de l'entrée: <?php echo $dbEntriesResult[1]; ?></p>
-                <p>Adresse du site: <a href="<?php echo $dbEntriesResult[2]; ?>"><?php echo $dbEntriesResult[2]; ?></p></a>
-                <p>Adresse complète du lien: <a href="<?php echo $dbEntriesResult[3]; ?>"><?php echo $dbEntriesResult[3]; ?></p></a>
-                <p>Description: <?php echo $dbEntriesResult[4]; ?></p>
+                <p>Adresse complète du lien: <a href="<?php echo $dbEntriesResult[2]; ?>"><?php echo $dbEntriesResult[2]; ?></p></a>
+                <p>Description: <?php echo $dbEntriesResult[3]; ?></p>
             </div>
             <?php
             }
@@ -132,9 +125,8 @@ switch(true){
             <form method="post">
             Code de l'entrée dans la base de données (non modifiable): <?php echo $makeFormResult[0]; ?><input type="hidden" value="<?php echo $makeFormResult[0]; ?>" name="modified0"></br>
             Nom à modifier: <input type="text" value="<?php echo $makeFormResult[1];?>" name="modified1"></br>
-            Adresse du site modifier: <input type="text" value="<?php echo $makeFormResult[2];?>" name="modified2"></br>
-            Adresse complète à modifier: <input type="text" value="<?php echo $makeFormResult[3];?>" name="modified3"></br>
-            Description à modifier: <input type="text" value="<?php echo $makeFormResult[4];?>" name="modified4"></br>
+            Adresse url à modifier: <input type="text" value="<?php echo $makeFormResult[2];?>" name="modified2"></br>
+            Description à modifier: <input type="text" value="<?php echo $makeFormResult[3];?>" name="modified3"></br>
             <input type="submit">
             </form>
             </div>
@@ -142,13 +134,12 @@ switch(true){
         }
         break;
     // Formulaire "modifier une entrée dans la BDD, partie 2: formulaire de modifications"
-    case(isset($_POST['modified0']) && isset($_POST['modified1']) && isset($_POST['modified2']) && isset($_POST['modified3']) && isset($_POST['modified4'])): 
+    case(isset($_POST['modified0']) && isset($_POST['modified1']) && isset($_POST['modified2']) && isset($_POST['modified3'])): 
             $idNumber = $_POST['modified0'];
             $modified1 = $_POST['modified1'];
             $modified2 = $_POST['modified2'];
             $modified3 = $_POST['modified3'];
-            $modified4 = $_POST['modified4'];
-            $sqlQuery = "UPDATE liens SET nom = '$modified1', website = '$modified2', url = '$modified3', description = '$modified4' WHERE numero = '$idNumber'";
+            $sqlQuery = "UPDATE liens SET nom = '$modified1', url = '$modified2', description = '$modified3' WHERE numero = '$idNumber'";
             $updateForm = $mysqlClient->prepare($sqlQuery);
             $updateForm->execute();
             echo '<script>alert("Votre entrée a bien été modifiée!")</script>';
@@ -158,18 +149,19 @@ switch(true){
         $_POST = NULL; 
 }
 
-$varTest = 'je teste je teste je teste ';
-
 // III. Afficher le site 
 
-//Template setup pt1/4
+//Template setup 
 require_once('template.class.php');
 define('TEMPLATES_PATH', 'templates');
-//Instanciate new object 2/4
+define('PARTIALS_PATH', 'templates/partials');
+//Instanciate new object
 $template = new Template(TEMPLATES_PATH.'/tpl.html'); 
-//Assign values 3/4
+//Assign values
 $template->assign('title', 'Bonjour');
 $template->assign('text', $varTest);
-//Show content 4/4 
+//Adding partial 
+$template->renderPartial('table_here', PARTIALS_PATH.'/table.part.html', array('changed' => 'changee', 'changed2' => 'changee2'));
+//Show content
 $template->show();
 ?>
