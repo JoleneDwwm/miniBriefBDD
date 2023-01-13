@@ -23,22 +23,6 @@ switch(true){
         break; 
     
     // Bouton "afficher les entrées de la BDD"
-    case isset($_POST['buttonShow']): 
-        $sqlQuery = "SELECT * FROM liens";
-        $dbEntries = $mysqlClient->prepare($sqlQuery);
-        $dbEntries->execute();
-        $dbEntriesResult = $dbEntries->fetchAll();
-        foreach ($dbEntriesResult as $dbEntriesResult) {
-            ?>
-            <div style="background-color:#c3c3c3;border-style:double;padding:1rem;margin:1rem;">
-                <p>Code de l'entrée dans la base de données: <?php echo $dbEntriesResult[0]; ?></p>
-                <p>Nom de l'entrée: <?php echo $dbEntriesResult[1]; ?></p>
-                <p>Adresse complète du lien: <a href="<?php echo $dbEntriesResult[2]; ?>"><?php echo $dbEntriesResult[2]; ?></p></a>
-                <p>Description: <?php echo $dbEntriesResult[3]; ?></p>
-            </div>
-            <?php
-            }
-        break;
 
     // Formulaire "ajouter une entrée dans la BDD"
     case isset($_POST['newLinkName']) && isset($_POST['newLinkAddress']) && isset($_POST['newLinkDescription']): 
@@ -160,8 +144,18 @@ $template = new Template(TEMPLATES_PATH.'/tpl.html');
 //Assign values
 $template->assign('title', 'Bonjour');
 $template->assign('text', $varTest);
-//Adding partial 
-$template->renderPartial('table_here', PARTIALS_PATH.'/table.part.html', array('changed' => 'changee', 'changed2' => 'changee2'));
+
 //Show content
 $template->show();
+
+if(isset($_POST['buttonShow'])){
+        $sqlQuery = "SELECT * FROM liens";
+        $dbEntries = $mysqlClient->prepare($sqlQuery);
+        $dbEntries->execute();
+        $dbEntriesResult = $dbEntries->fetchAll();
+        foreach ($dbEntriesResult as $dbEntriesResult) {
+            $template->renderPartial('table_here', PARTIALS_PATH.'/table.part.html', array('code' => '$dbEntriesResult[0]', 'name' => '$dbEntriesResult[1]', 'link' => '$dbEntriesResult[2]', 'desc' => '$dbEntriesResult[3]'));
+            $template->show();
+            }
+}
 ?>
