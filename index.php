@@ -1,5 +1,7 @@
 <?php
 
+// CONTROLLER 
+
 // I. Accès à la BDD 
 
 require('connexion.php');

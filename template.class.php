@@ -49,4 +49,3 @@ class Template
         echo $this->tpl;
     }
 }
-?>
