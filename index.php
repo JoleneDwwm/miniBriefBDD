@@ -2,14 +2,7 @@
 
 // I. Accès à la BDD 
 
-try
-{
-    $mysqlClient = new PDO('mysql:host=localhost;dbname=brief5;charset=utf8', 'root', '' );
-}
-catch(Exception $e)
-{
-    die('Erreur : '.$e->getMessage("Il y a une erreur!" ));
-}
+require('connexion.php');
 
 $varTest = 'je teste je teste je teste ';
 
