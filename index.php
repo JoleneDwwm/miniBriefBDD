@@ -4,23 +4,59 @@
 
 // I. Accès à la BDD 
 
-require('connexion.php');
+require_once('connexion.php');
 
 $varTest = 'je teste je teste je teste ';
 
+// III. Afficher le site 
+
+//Template setup 
+require('template.class.php');
+define('TEMPLATES_PATH', 'templates');
+define('PARTIALS_PATH', TEMPLATES_PATH.'/partials');
+//Instanciate new object
+$template = new Template(TEMPLATES_PATH.'/tpl.html'); 
+// $template->renderPartial('tablehere', PARTIALS_PATH.'/table.part.html', array('code' => 'oy', 'name' => 'text', 'link' => 'test', 'desc' => 'test'));
+
+//Assign values
+$template->assign('title', 'Bonjour');
+$template->assign('text', $varTest);
+
+//Show content
+$template->show();
+
 // II. Create Read Update Delete 
 
-switch(true){
-
     // Bouton "cacher ( = effacer l'affichage) les entrées de la BDD"
-    case isset($_POST['buttonErase']): 
+function hide(){
+    if(isset($_POST['buttonErase'])){
         $_POST = NULL; 
-        break; 
+    } 
+}
     
     // Bouton "afficher les entrées de la BDD"
-
+function showEntry(){
+    if(isset($_POST['buttonShow'])){
+        $sqlQuery = "SELECT * FROM liens";
+        $dbEntries = $mysqlClient->prepare($sqlQuery);
+        $dbEntries->execute();
+        $dbEntriesResult = $dbEntries->fetchAll();
+        foreach ($dbEntriesResult as $dbEntriesResult) {
+            ?>
+            <div style="background-color:#c3c3c3;border-style:double;padding:1rem;margin:1rem;">
+            <p>Code de l'entrée dans la base de données: <?php echo $dbEntriesResult[0]; ?></p>
+                <p>Nom de l'entrée: <?php echo $dbEntriesResult[1]; ?></p>
+                <p>Adresse complète du lien: <a href="<?php echo $dbEntriesResult[2]; ?>"><?php echo $dbEntriesResult[2]; ?></p></a>
+                <p>Description: <?php echo $dbEntriesResult[3]; ?></p>
+            </div>
+            <?php
+        }
+    }
+}
+       
     // Formulaire "ajouter une entrée dans la BDD"
-    case isset($_POST['newLinkName']) && isset($_POST['newLinkAddress']) && isset($_POST['newLinkDescription']): 
+function addEntry(){
+    if(isset($_POST['newLinkName']) && isset($_POST['newLinkAddress']) && isset($_POST['newLinkDescription'])){ 
         $newLinkName = $_POST['newLinkName'];
         $newLinkAddress = $_POST['newLinkAddress'];
         $newLinkDescription = $_POST['newLinkDescription'];
@@ -28,18 +64,23 @@ switch(true){
         $newDbEntry = $mysqlClient->prepare($sqlQuery);
         $newDbEntry->execute();
         echo '<script>alert("Votre entrée a bien été ajoutée!")</script>';
-        break;
+    }
+}
 
     // Formulaire "effacer une entrée dans la BDD"
-    case isset($_POST['numberDelete']): 
+function deleteEntry(){
+    if(isset($_POST['numberDelete'])){
         $numberDelete = $_POST['numberDelete'];
         $sqlQuery = "DELETE FROM `liens` WHERE `liens`.`numero` = '$numberDelete'";
         $deleteEntry = $mysqlClient->prepare($sqlQuery);
         $deleteEntry->execute();
         echo '<script>alert("Votre entrée a bien été supprimée!")</script>';
-        break;
-
-    // Formulaire "afficher les entrées par catégories, option 1"
+    }
+}
+// Formulaire "afficher les entrées par catégories"
+function showByCategory(){
+        switch(true){
+        // Option 1
     case (isset($_POST['frontEnd'])): 
         $sqlQuery = "SELECT * FROM `liens` JOIN `categories` ON `liens`.`categoriesId` = `categories`.`numero` WHERE(`categories`.`numero`=0)";
         $cat0 = $mysqlClient->prepare($sqlQuery);
@@ -56,7 +97,7 @@ switch(true){
             <?php
             }
         break;
-    // Formulaire "afficher les entrées par catégories, option 2"
+    // Option 2
     case (isset($_POST['backEnd'])): 
         $sqlQuery = "SELECT * FROM `liens` JOIN `categories` ON `liens`.`categoriesId` = `categories`.`numero` WHERE(`categories`.`numero`=1)";
         $cat1 = $mysqlClient->prepare($sqlQuery);
@@ -73,7 +114,7 @@ switch(true){
             <?php
             }
         break;
-    // Formulaire "afficher les entrées par catégories, option 3"
+    // Option 3
     case (isset($_POST['outils'])): 
         $sqlQuery = "SELECT * FROM `liens` JOIN `categories` ON `liens`.`categoriesId` = `categories`.`numero` WHERE (`categories`.`numero`=2) OR (`categories`.`numero`=3)";
         $cat2 = $mysqlClient->prepare($sqlQuery);
@@ -90,8 +131,13 @@ switch(true){
             <?php
             }
         break;
+    }
+}
 
-    // Formulaire "modifier une entrée dans la BDD, partie 1: afficher l'entrée à formuler"
+// Formulaire "modifier une entrée dans la BDD" 
+function modifyEntry(){
+    switch(true){
+            // partie 1: afficher l'entrée à formuler
     case isset($_POST['findIdNumber']): 
         $idNumber = $_POST['findIdNumber'];
         $sqlQuery = "SELECT * FROM liens WHERE numero = '$idNumber'";
@@ -112,7 +158,7 @@ switch(true){
             <?php
         }
         break;
-    // Formulaire "modifier une entrée dans la BDD, partie 2: formulaire de modifications"
+        // partie 2: formulaire de modifications
     case(isset($_POST['modified0']) && isset($_POST['modified1']) && isset($_POST['modified2']) && isset($_POST['modified3'])): 
             $idNumber = $_POST['modified0'];
             $modified1 = $_POST['modified1'];
@@ -123,34 +169,7 @@ switch(true){
             $updateForm->execute();
             echo '<script>alert("Votre entrée a bien été modifiée!")</script>';
         break; 
-        
-    default: 
-        $_POST = NULL; 
+    }
 }
 
-// III. Afficher le site 
-
-//Template setup 
-require_once('template.class.php');
-define('TEMPLATES_PATH', 'templates');
-define('PARTIALS_PATH', 'templates/partials');
-//Instanciate new object
-$template = new Template(TEMPLATES_PATH.'/tpl.html'); 
-//Assign values
-$template->assign('title', 'Bonjour');
-$template->assign('text', $varTest);
-
-//Show content
-$template->show();
-
-if(isset($_POST['buttonShow'])){
-        $sqlQuery = "SELECT * FROM liens";
-        $dbEntries = $mysqlClient->prepare($sqlQuery);
-        $dbEntries->execute();
-        $dbEntriesResult = $dbEntries->fetchAll();
-        foreach ($dbEntriesResult as $dbEntriesResult) {
-            $template->renderPartial('table_here', PARTIALS_PATH.'/table.part.html', array('code' => '$dbEntriesResult[0]', 'name' => '$dbEntriesResult[1]', 'link' => '$dbEntriesResult[2]', 'desc' => '$dbEntriesResult[3]'));
-            $template->show();
-            }
-}
 ?>

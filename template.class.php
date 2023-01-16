@@ -23,12 +23,12 @@ class Template
     }
 
     function renderPartial($_searchString, $_path, $_assignedValues = array()){
-        if(!empy($_searchString)){
+        if(!empty($_searchString)){
             if(file_exists($_path)){
                 $this->partialBuffer = file_get_contents($_path);
                 if(count($_assignedValues) > 0){
                     foreach($_assignedValues as $key => $value){
-                        $this->$partialBuffer = str_replace('{'.strtoupper($key).'}', $value, $this->partialBuffer );
+                        $this->partialBuffer = str_replace('{'.strtoupper($key).'}', $value, $this->partialBuffer);
                     }
                 }
                 $this->tpl = str_replace('['.strtoupper($_searchString).']', $this->partialBuffer, $this->tpl); 
