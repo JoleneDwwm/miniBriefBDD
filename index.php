@@ -5,37 +5,18 @@
 // I. Accès à la BDD 
 
 require_once('connexion.php');
+require_once('tpl.html');
 
-$varTest = 'je teste je teste je teste ';
-
-// III. Afficher le site 
-
-//Template setup 
-require('template.class.php');
-define('TEMPLATES_PATH', 'templates');
-define('PARTIALS_PATH', TEMPLATES_PATH.'/partials');
-//Instanciate new object
-$template = new Template(TEMPLATES_PATH.'/tpl.html'); 
-// $template->renderPartial('tablehere', PARTIALS_PATH.'/table.part.html', array('code' => 'oy', 'name' => 'text', 'link' => 'test', 'desc' => 'test'));
-
-//Assign values
-$template->assign('title', 'Bonjour');
-$template->assign('text', $varTest);
-
-//Show content
-$template->show();
+// III. Afficher le site
 
 // II. Create Read Update Delete 
 
     // Bouton "cacher ( = effacer l'affichage) les entrées de la BDD"
-function hide(){
     if(isset($_POST['buttonErase'])){
         $_POST = NULL; 
     } 
-}
     
     // Bouton "afficher les entrées de la BDD"
-function showEntry(){
     if(isset($_POST['buttonShow'])){
         $sqlQuery = "SELECT * FROM liens";
         $dbEntries = $mysqlClient->prepare($sqlQuery);
@@ -52,10 +33,8 @@ function showEntry(){
             <?php
         }
     }
-}
        
     // Formulaire "ajouter une entrée dans la BDD"
-function addEntry(){
     if(isset($_POST['newLinkName']) && isset($_POST['newLinkAddress']) && isset($_POST['newLinkDescription'])){ 
         $newLinkName = $_POST['newLinkName'];
         $newLinkAddress = $_POST['newLinkAddress'];
@@ -65,10 +44,8 @@ function addEntry(){
         $newDbEntry->execute();
         echo '<script>alert("Votre entrée a bien été ajoutée!")</script>';
     }
-}
 
     // Formulaire "effacer une entrée dans la BDD"
-function deleteEntry(){
     if(isset($_POST['numberDelete'])){
         $numberDelete = $_POST['numberDelete'];
         $sqlQuery = "DELETE FROM `liens` WHERE `liens`.`numero` = '$numberDelete'";
@@ -76,10 +53,9 @@ function deleteEntry(){
         $deleteEntry->execute();
         echo '<script>alert("Votre entrée a bien été supprimée!")</script>';
     }
-}
 // Formulaire "afficher les entrées par catégories"
-function showByCategory(){
-        switch(true){
+
+switch(true){
         // Option 1
     case (isset($_POST['frontEnd'])): 
         $sqlQuery = "SELECT * FROM `liens` JOIN `categories` ON `liens`.`categoriesId` = `categories`.`numero` WHERE(`categories`.`numero`=0)";
@@ -132,10 +108,8 @@ function showByCategory(){
             }
         break;
     }
-}
 
 // Formulaire "modifier une entrée dans la BDD" 
-function modifyEntry(){
     switch(true){
             // partie 1: afficher l'entrée à formuler
     case isset($_POST['findIdNumber']): 
@@ -170,6 +144,5 @@ function modifyEntry(){
             echo '<script>alert("Votre entrée a bien été modifiée!")</script>';
         break; 
     }
-}
 
 ?>
