@@ -126,7 +126,7 @@ switch(true){
             Nom à modifier: <input type="text" value="<?php echo $makeFormResult[1];?>" name="modified1"></br>
             Adresse url à modifier: <input type="text" value="<?php echo $makeFormResult[2];?>" name="modified2"></br>
             Description à modifier: <input type="text" value="<?php echo $makeFormResult[3];?>" name="modified3"></br>
-            <input type="submit">
+            <input class="button" type="submit">
             </form>
             </div>
             <?php
