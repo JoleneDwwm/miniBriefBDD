@@ -24,7 +24,7 @@ require_once('tpl.html');
         $dbEntriesResult = $dbEntries->fetchAll();
         foreach ($dbEntriesResult as $dbEntriesResult) {
             ?>
-            <div style="background-color:#c3c3c3;border-style:double;padding:1rem;margin:1rem;">
+            <div>
             <p>Code de l'entrée dans la base de données: <?php echo $dbEntriesResult[0]; ?></p>
                 <p>Nom de l'entrée: <?php echo $dbEntriesResult[1]; ?></p>
                 <p>Adresse complète du lien: <a href="<?php echo $dbEntriesResult[2]; ?>"><?php echo $dbEntriesResult[2]; ?></p></a>
@@ -64,7 +64,7 @@ switch(true){
         $cat0Result = $cat0->fetchAll();
         foreach ($cat0Result as $dbEntriesResult) {
             ?>
-            <div style="background-color:#c3c3c3;border-style:double;padding:1rem;margin:1rem;">
+            <div>
             <p>Code de l'entrée dans la base de données: <?php echo $dbEntriesResult[0]; ?></p>
                 <p>Nom de l'entrée: <?php echo $dbEntriesResult[1]; ?></p>
                 <p>Adresse complète du lien: <a href="<?php echo $dbEntriesResult[2]; ?>"><?php echo $dbEntriesResult[2]; ?></p></a>
@@ -81,7 +81,7 @@ switch(true){
         $cat1Result = $cat1->fetchAll();
         foreach ($cat1Result as $dbEntriesResult) {
             ?>
-            <div style="background-color:#c3c3c3;border-style:double;padding:1rem;margin:1rem;">
+            <div>
                 <p>Code de l'entrée dans la base de données: <?php echo $dbEntriesResult[0]; ?></p>
                 <p>Nom de l'entrée: <?php echo $dbEntriesResult[1]; ?></p>
                 <p>Adresse complète du lien: <a href="<?php echo $dbEntriesResult[2]; ?>"><?php echo $dbEntriesResult[2]; ?></p></a>
@@ -98,7 +98,7 @@ switch(true){
         $cat2Result = $cat2->fetchAll();
         foreach ($cat2Result as $dbEntriesResult) {
             ?>
-            <div style="background-color:#c3c3c3;border-style:double;padding:1rem;margin:1rem;">
+            <div>
                 <p>Code de l'entrée dans la base de données: <?php echo $dbEntriesResult[0]; ?></p>
                 <p>Nom de l'entrée: <?php echo $dbEntriesResult[1]; ?></p>
                 <p>Adresse complète du lien: <a href="<?php echo $dbEntriesResult[2]; ?>"><?php echo $dbEntriesResult[2]; ?></p></a>
@@ -120,7 +120,7 @@ switch(true){
         $makeFormResult = $makeForm->fetchAll();
         foreach ($makeFormResult as $makeFormResult) {
             ?>
-            <div style="background-color:#c3c3c3;text-align:center;border-style:double;padding:1rem;margin:1rem;">
+            <div>
             <form method="post">
             Code de l'entrée dans la base de données (non modifiable): <?php echo $makeFormResult[0]; ?><input type="hidden" value="<?php echo $makeFormResult[0]; ?>" name="modified0"></br>
             Nom à modifier: <input type="text" value="<?php echo $makeFormResult[1];?>" name="modified1"></br>
