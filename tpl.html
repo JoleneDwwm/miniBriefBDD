@@ -2,6 +2,7 @@
 
 <!-- VIEW -->
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -9,51 +10,70 @@
     <link href="styles/styles.css" rel="stylesheet" type="text/css">
     <title>Base de données</title>
 </head>
+
 <body>
+    <div class="grayBox">
+        <h2>Formulaires de manipulation de la base des données</h2>
+        <div class="slider">
+            <a href="#slide1">AFFICHER TOUT</a>
+            <a href="#slide2">AFFICHER PAR CATEGORIE</a>
+            <a href="#slide3">AJOUTER</a>
+            <a href="#slide4">SUPPRIMER</a>
+            <a href="#slide5">MODIFIER</a>
 
-    <div>
-        <p>Afficher ou cacher toutes les entrées de la base de données</p>
-    <form style="margin:auto;" method="post">
-        <input type="submit" name="buttonShow" class="button" value="Afficher" />
-        <input type="submit" name="buttonErase" class="button" value="Cacher" />
-    </form>
-    </div>
+            <div class="slides">
 
-    <div>
-        <p>Afficher les entrées de la base par catégorie</p>
-        <form style="margin:auto;" method="post">
-            <input type="submit" name="frontEnd" class="button" value="Front End" />
-            <input type="submit" name="backEnd" class="button" value="Back End" />
-            <input type="submit" name="outils" class="button" value="Outils et Ressources" />
-        </form>
-    </div>
+                <div id="slide1">
 
-    <div>
-        <p>Ajouter une entrée dans la base de données</p>
-        <form method="post">
-            Ajouter un nom à votre entrée: <input type="text" name="newLinkName">
-            Ajouter l'adresse du site web: <input type="text" name="newLinkAddress">
-            Ajouter une description: <input type="text" name="newLinkDescription">
-            <input type="submit" class="button" value="Ajouter">
-        </form>
+                    <form style="margin:auto;" method="post">
+                        <p>Afficher ou cacher toutes les entrées de la base de données</p></br>
+                        <input type="submit" name="buttonShow" class="button" value="Afficher" />
+                        <input type="submit" name="buttonErase" class="button" value="Cacher" />
+                    </form>
+                </div>
+
+                <div id="slide2">
+
+                    <form style="margin:auto;" method="post">
+                        <p>Afficher les entrées de la base par catégorie</p></br>
+                        <input type="submit" name="frontEnd" class="button" value="Front End" />
+                        <input type="submit" name="backEnd" class="button" value="Back End" />
+                        <input type="submit" name="outils" class="button" value="Outils et Ressources" />
+                    </form>
+                </div>
+
+                <div id="slide3">
+
+                    <form style="margin:auto;" method="post">
+                        <p>Ajouter une entrée dans la base de données</p></br>
+                        Ajouter un nom à votre entrée: <input type="text" name="newLinkName"></br>
+                        Ajouter l'adresse du site web: <input type="text" name="newLinkAddress"></br>
+                        Ajouter une description: <input type="text" name="newLinkDescription"></br>
+                        <input type="submit" class="button" value="Ajouter">
+                    </form>
+                </div>
+
+                <div id="slide4">
+
+                    <form style="margin:auto;" method="post">
+                        <p>Supprimer une entrée dans la base de données</p></br>
+                        Sélectionner le numéro de l'entrée: <input type="int" name="numberDelete"></br>
+                        <input type="submit" class="button" value="Supprimer">
+                    </form>
+                </div>
+
+                <div id="slide5">
+
+                    <form style="margin:auto;" method="post">
+                        <p>Modifier une entrée dans la base de données</p></br>
+                        Veuillez indiquer le numéro de l'entrée: <input type="int" name="findIdNumber"></br>
+                        <input type="submit" class="button" value="OK">
+                        <input type="submit" name="buttonErase" class="button" value="Effacer" />
+                    </form>
+                </div>
+            </div>
         </div>
-
-    <div>
-        <p>Supprimer une entrée dans la base de données</p>
-        <form method="post">
-            Sélectionner le numéro de l'entrée: <input type="int" name="numberDelete">
-            <input type="submit" class="button" value="Supprimer">
-        </form>
-        </div>
-
-    <div>
-        <p>Modifier une entrée dans la base de données</p>
-        <form method="post">
-            Veuillez indiquer le numéro de l'entrée: <input type="int" name="findIdNumber">
-            <input type="submit" class="button" value="OK">
-            <input type="submit" name="buttonErase" class="button" value="Effacer" />
-        </form>
     </div>
-
 </body>
+
 </html>
