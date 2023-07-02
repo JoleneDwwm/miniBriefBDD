@@ -4,7 +4,7 @@
 
 try
 {
-    $mysqlClient = new PDO('mysql:host=localhost;dbname=brief5;charset=utf8', 'root', '' );
+    $mysqlClient = new PDO('mysql:host=aws.connect.psdb.cloud;dbname=brief5;charset=utf8', 'sal9oejw5lvfm8j9prto', 'pscale_pw_om9oqQZsFlZfQAP3qf3VaA3AjmGK0oy9HegTky9HBNa' );
 }
 catch(Exception $e)
 {
