@@ -4,7 +4,7 @@
 
 // I. Accès à la BDD 
 
-require_once('connexion.php');
+require_once('Connexion.php');
 require_once('tpl.html');
 
 // III. Afficher le site
